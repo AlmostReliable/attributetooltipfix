@@ -31,6 +31,8 @@ If you are using KubeJS or another mod which let's you define attributes directl
 * Attack Damage: **CB3F55D3-645C-4F38-A497-9C13A33DB5CF**
 * Attack Speed: **FA233E1C-4180-4865-B01B-BCCE9785ACA3**
 
+![Showcase](https://i.imgur.com/FsfJnwN.gif "Showcase")
+
 ## **🎓 License**
 This project is licensed under the [GNU Lesser General Public License v3.0][license].
 
