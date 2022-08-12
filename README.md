@@ -17,13 +17,27 @@ A [Minecraft] mod which fix tooltip rendering for attributes, when they are load
 2. Install Minecraft [Forge] or [Fabric].
 3. Drop the mod **jar** into your mods folder.
 
+## **✏️ Usage**
+If you are using commands or something else where you need to add the UUID as NBT to add attributes, use these:
+* Attack Damage: **[I;-885041709,1683771192,-1533567981,-1556236849]**
+* Attack Speed: **[I;-98353636,1098926181,-1340359474,-1752847197]**
+
+Simple example for a diamond sword:
+```
+/give @p diamond_sword{AttributeModifiers:[{AttributeName:"generic.attack_damage",Amount:6,Slot:mainhand,Name:"generic.attack_damage",UUID:[I;-885041709,1683771192,-1533567981,-1556236849]},{AttributeName:"generic.attack_speed",Amount:-2.4,Slot:mainhand,Name:"generic.attack_speed",UUID:[I;-98353636,1098926181,-1340359474,-1752847197]}]} 1
+```
+
+If you are using KubeJS or another mod which let's you define attributes directly through the UUID string, use these:
+* Attack Damage: **CB3F55D3-645C-4F38-A497-9C13A33DB5CF**
+* Attack Speed: **FA233E1C-4180-4865-B01B-BCCE9785ACA3**
+
 ## **🎓 License**
 This project is licensed under the [GNU Lesser General Public License v3.0][license].
 
 <!-- Badges -->
 [version_badge]: https://img.shields.io/github/v/release/AlmostReliable/attributetooltipfix?style=flat-square
 [version_link]: https://github.com/AlmostReliable/attributetooltipfix/releases/latest
-[total_downloads_badge]: http://cf.way2muchnoise.eu/full_633823.svg?badge_style=flat
+[total_downloads_badge]: http://cf.way2muchnoise.eu/full_658833.svg?badge_style=flat
 [workflow_status_badge]: https://img.shields.io/github/workflow/status/AlmostReliable/attributetooltipfix/CI?style=flat-square
 [workflow_status_link]: https://github.com/AlmostReliable/attributetooltipfix/actions
 [license_badge]: https://img.shields.io/github/license/AlmostReliable/attributetooltipfix?style=flat-square
