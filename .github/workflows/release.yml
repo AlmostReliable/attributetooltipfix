@@ -37,8 +37,14 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Build the JARs
-        run: ./gradlew build
+      - name: Assemble the JARs
+        run: ./gradlew assemble
+
+      - name: Move JARs to build directory
+        run: |
+          mkdir -p build/libs
+          mv -f Forge/build/libs/*.jar build/libs
+          mv -f Fabric/build/libs/*.jar build/libs
 
       - name: Collect version information
         run: |
@@ -61,14 +67,14 @@ jobs:
         run: parse-changelog CHANGELOG.md ${{ env.MOD_VERSION }} > changes.md
 
       - name: Release Fabric to CF and MR
-        uses: Kir-Antipov/mc-publish@v3.0
+        uses: Kir-Antipov/mc-publish@v3.1
         with:
           curseforge-id: 658833
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           modrinth-id: eRyV6EA3
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          files: Fabric/build/libs/${{ env.MOD_ID }}-fabric-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
+          files: build/libs/${{ env.MOD_ID }}-fabric-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
           name: ${{ env.MOD_NAME }}-Fabric-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}
           version: ${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}+fabric
           version-type: ${{ env.RELEASE_TYPE }}
@@ -82,14 +88,14 @@ jobs:
           retry-delay: 10000
 
       - name: Release Forge to CF and MR
-        uses: Kir-Antipov/mc-publish@v3.0
+        uses: Kir-Antipov/mc-publish@v3.1
         with:
           curseforge-id: 658833
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           modrinth-id: eRyV6EA3
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          files: Forge/build/libs/${{ env.MOD_ID }}-forge-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
+          files: build/libs/${{ env.MOD_ID }}-forge-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
           name: ${{ env.MOD_NAME }}-Forge-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}
           version: ${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}+forge
           version-type: ${{ env.RELEASE_TYPE }}
@@ -103,12 +109,10 @@ jobs:
           retry-delay: 10000
 
       - name: Release to GitHub
-        uses: Kir-Antipov/mc-publish@v3.0
+        uses: Kir-Antipov/mc-publish@v3.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          files: 
-            - Fabric/build/libs/${{ env.MOD_ID }}-fabric-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
-            - Forge/build/libs/${{ env.MOD_ID }}-forge-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
+          files: build/libs/${{ env.MOD_ID }}-*-${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}.jar
           version: ${{ env.MINECRAFT_VERSION }}-${{ env.MOD_VERSION }}
           version-type: ${{ env.RELEASE_TYPE }}
           changelog-file: changes.md
