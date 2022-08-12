@@ -50,7 +50,7 @@ This project is licensed under the [GNU Lesser General Public License v3.0][lice
 [minecraft]: https://www.minecraft.net/
 [discord]: https://discord.com/invite/ThFnwZCyYY
 [releases]: https://github.com/AlmostReliable/attributetooltipfix/releases
-[curseforge]: https://www.curseforge.com/minecraft/mc-mods/attributetooltipfix
+[curseforge]: https://www.curseforge.com/minecraft/mc-mods/attribute-tooltip-fix
 [modrinth]: https://modrinth.com/mod/attribute-tooltip-fix
 [forge]: http://files.minecraftforge.net/
 [fabric]: https://fabricmc.net/
