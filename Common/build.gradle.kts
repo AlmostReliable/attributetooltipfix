@@ -14,7 +14,7 @@ val fabricLoaderVersion: String by project
 val mappingsChannel: String by project
 val mappingsVersion: String by project
 
-val baseArchiveName = "${modName}-common-${minecraftVersion}"
+val baseArchiveName = "${modId}-common-${minecraftVersion}"
 
 base {
     archivesName.set(baseArchiveName)
