@@ -15,7 +15,6 @@ val modAuthor: String by project
 val modId: String by project
 val mappingsChannel: String by project
 val mappingsVersion: String by project
-val jeiVersion: String by project
 
 
 val baseArchiveName = "${modId}-forge-${minecraftVersion}"
@@ -26,7 +25,6 @@ base {
 
 minecraft {
     mappings(mappingsChannel, "${mappingsVersion}-${minecraftVersion}")
-    accessTransformer(file("src/main/resources/META-INF/accesstransformer.cfg"))
 
     runs {
         create("client") {
@@ -67,9 +65,6 @@ val commonTests: SourceSetOutput = project(":Common").sourceSets["test"].output
 dependencies {
     minecraft("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
     compileOnly(project(":Common"))
-
-    compileOnly(fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}:api"))
-    runtimeOnly(fg.deobf("mezz.jei:jei-${minecraftVersion}:${jeiVersion}"))
 
     annotationProcessor("org.spongepowered:mixin:${mixinVersion}:processor")
 }
