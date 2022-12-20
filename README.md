@@ -41,8 +41,8 @@ This project is licensed under the [GNU Lesser General Public License v3.0][lice
 [version_badge]: https://img.shields.io/github/v/release/AlmostReliable/attributetooltipfix?style=flat-square
 [version_link]: https://github.com/AlmostReliable/attributetooltipfix/releases/latest
 [total_downloads_cf_badge]: http://cf.way2muchnoise.eu/full_658833.svg?badge_style=flat
-[total_downloads_mr_badge]: https://img.shields.io/badge/dynamic/json?style=flat-square&color=5da545&label=modrinth&query=downloads&url=https://api.modrinth.com/api/v1/mod/eRyV6EA3
-[workflow_status_badge]: https://img.shields.io/github/workflow/status/AlmostReliable/attributetooltipfix/Build?style=flat-square
+[total_downloads_mr_badge]: https://img.shields.io/modrinth/dt/eRyV6EA3?color=5da545&label=Modrinth&style=flat-square
+[workflow_status_badge]: https://img.shields.io/github/actions/workflow/status/AlmostReliable/attributetooltipfix/build.yml?branch=1.18&style=flat-square
 [workflow_status_link]: https://github.com/AlmostReliable/attributetooltipfix/actions
 [license_badge]: https://img.shields.io/github/license/AlmostReliable/attributetooltipfix?style=flat-square
 
