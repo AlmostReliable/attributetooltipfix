@@ -134,10 +134,6 @@ jobs:
                     game-versions: ${{ needs.build.outputs.MINECRAFT_VERSION }}
                     java: ${{ env.JAVA_VERSION }}
 
-                    dependencies: |
-                        jei(optional){curseforge:238222}{modrinth:u6dRKJwZ}
-                        rei(optional){curseforge:310111}{modrinth:nfn13YXA}
-
     cf-fabric-release:
         name: CurseForge Fabric Release
         needs: build
@@ -166,10 +162,6 @@ jobs:
                     loaders: fabric
                     game-versions: ${{ needs.build.outputs.MINECRAFT_VERSION }}
                     java: ${{ env.JAVA_VERSION }}
-
-                    dependencies: |
-                        jei(optional){curseforge:238222}{modrinth:u6dRKJwZ}
-                        rei(optional){curseforge:310111}{modrinth:nfn13YXA}
 
     mr-forge-release:
         name: Modrinth Forge Release
@@ -202,10 +194,6 @@ jobs:
                     game-versions: ${{ needs.build.outputs.MINECRAFT_VERSION }}
                     java: ${{ env.JAVA_VERSION }}
 
-                    dependencies: |
-                        jei(optional){curseforge:238222}{modrinth:u6dRKJwZ}
-                        rei(optional){curseforge:310111}{modrinth:nfn13YXA}
-
     cf-forge-release:
         name: CurseForge Forge Release
         needs: build
@@ -236,10 +224,6 @@ jobs:
                         neoforge
                     game-versions: ${{ needs.build.outputs.MINECRAFT_VERSION }}
                     java: ${{ env.JAVA_VERSION }}
-
-                    dependencies: |
-                        jei(optional){curseforge:238222}{modrinth:u6dRKJwZ}
-                        rei(optional){curseforge:310111}{modrinth:nfn13YXA}
 
     github-release:
         name: GitHub Release
