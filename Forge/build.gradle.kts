@@ -1,102 +1,38 @@
-plugins {
-    java
-    eclipse
-    id("net.minecraftforge.gradle") version ("5.1.+")
-    id("org.parchmentmc.librarian.forgegradle") version ("1.+")
-    id("org.spongepowered.mixin") version ("0.7-SNAPSHOT")
-    `maven-publish`
-}
-
 val minecraftVersion: String by project
-val mixinVersion: String by project
 val forgeVersion: String by project
-val modName: String by project
-val modAuthor: String by project
 val modId: String by project
-val mappingsChannel: String by project
-val mappingsVersion: String by project
 
-
-val baseArchiveName = "${modId}-forge-${minecraftVersion}"
-
-base {
-    archivesName.set(baseArchiveName)
+plugins {
+    id("com.github.johnrengelman.shadow") version ("8.1.1")
 }
 
-minecraft {
-    mappings(mappingsChannel, "${mappingsVersion}-${minecraftVersion}")
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
 
-    runs {
-        create("client") {
-            workingDirectory(project.file("run"))
-            ideaModule("${rootProject.name}.${project.name}.main")
-            taskName("Client")
-            property("mixin.env.remapRefMap", "true")
-            property("mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg")
-            mods {
-                create(modId) {
-                    source(sourceSets.main.get())
-                    source(project(":Common").sourceSets.main.get())
-                }
-            }
+loom {
+    if (project.findProperty("enableAccessWidener") == "true") { // Optional property for `gradle.properties` to enable access wideners.
+        accessWidenerPath.set(project(":Common").loom.accessWidenerPath)
+        forge {
+            convertAccessWideners.set(true)
+            extraAccessWideners.add(loom.accessWidenerPath.get().asFile.name)
         }
+        println("Access widener enabled for project ${project.name}. Access widener path: ${loom.accessWidenerPath.get()}")
+    }
 
-        create("server") {
-            workingDirectory(project.file("run"))
-            ideaModule("${rootProject.name}.${project.name}.main")
-            taskName("Server")
-            property("mixin.env.remapRefMap", "true")
-            property("mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg")
-            mods {
-                create(modId) {
-                    source(sourceSets.main.get())
-                    source(project(":Common").sourceSets.main.get())
-                }
-            }
-        }
+    forge {
+        mixinConfigs("$modId-common.mixins.json")
     }
 }
 
-sourceSets.main.get().resources.srcDir("src/generated/resources")
-
-// from millions of solutions, this is the only one which works... :-)
-val commonTests: SourceSetOutput = project(":Common").sourceSets["test"].output
-
+val common by configurations
+val shadowCommon by configurations
 dependencies {
-    minecraft("net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}")
-    compileOnly(project(":Common"))
+    // loader
+    forge("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
 
-    annotationProcessor("org.spongepowered:mixin:${mixinVersion}:processor")
-}
-
-mixin {
-    add(sourceSets.main.get(), "${modId}.refmap.json")
-    config("${modId}-common.mixins.json")
-}
-
-tasks.withType<JavaCompile> {
-    source(project(":Common").sourceSets.main.get().allSource)
-}
-
-tasks.processResources {
-    from(project(":Common").sourceSets.main.get().resources)
-}
-
-tasks {
-    jar {
-        finalizedBy("reobfJar")
-    }
-}
-
-publishing {
-    publications {
-        register("mavenJava", MavenPublication::class) {
-            artifactId = baseArchiveName
-            artifact(tasks.jar)
-        }
-    }
-
-    repositories {
-        maven("file://${System.getenv("local_maven")}")
-    }
+    // common module
+    common(project(":Common", "namedElements")) { isTransitive = false }
+    shadowCommon(project(":Common", "transformProductionForge")) { isTransitive = false }
 }

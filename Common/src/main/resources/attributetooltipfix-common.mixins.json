@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "AttributeModifierMixin",
+    "ItemAccessor",
     "ItemStackMixin"
   ],
   "client": [
