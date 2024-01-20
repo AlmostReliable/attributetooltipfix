@@ -1,4 +1,9 @@
 
+## [2.0.1] - 2024-01-20
+
+### Fixed
+- Fix refmap usage for mixins
+
 ## [2.0.0] - 2024-01-18
 
 ### Change
